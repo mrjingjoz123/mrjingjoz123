@@ -17,34 +17,29 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Number',
   data () {
     return {
-      number: 0
     }
   },
-  props: {
-    value: {
-      type: Number,
-      default: 0
-    }
-  },
-  watch: {
-    value (v) {
-      this.number = v
+  computed: {
+    number () {
+      return this.$store.state.number
     }
   },
   methods: {
-    plus () {
-      this.number++
-      this.$emit('valueChange', this.number)
-    },
-    minus () {
-      if (this.number === 0) return
-      this.number--
-      this.$emit('valueChange', this.number)
-    }
+    ...mapActions([
+      'plus',
+      'minus'
+    ])
+    // plus () {
+    //   this.$store.dispatch('plus')
+    // },
+    // minus () {
+    //   this.$store.dispatch('minus')
+    // }
   }
 }
 </script>

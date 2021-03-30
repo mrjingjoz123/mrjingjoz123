@@ -4,9 +4,35 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    message () {
+      return this.$store.state.message
+    }
+  },
+  watch: {
+    message (v) {
+      this.makeToast()
+    }
+  },
+  methods: {
+    makeToast (append = false) {
+      this.toastCount++
+      this.$bvToast.toast(this.message.message, {
+        title: 'BootstrapVue Toast',
+        autoHideDelay: 5000,
+        appendToast: append,
+        variant: this.message.type
+      })
+    }
+  }
+}
+</script>
 
 <style>
 #app {
